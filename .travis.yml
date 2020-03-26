@@ -1,0 +1,13 @@
+sudo: required
+
+# serve docker installato
+services: 
+  - docker
+
+# comandi da eseguire per di fare i test
+before_install:
+  - docker build -t wolfdeveloper/docker-react -f Dockerfile.dev . 
+
+# da eseguire per i test
+script:
+  - docker run -e CI=true wolfdeveloper/docker-react npm run test
