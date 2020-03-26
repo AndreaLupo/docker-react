@@ -1,0 +1,23 @@
+version: '3'
+services:
+    web:
+        container_name: web
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        ports:
+            - "3000:3000"
+        volumes: 
+            # non considero questa cartella all'interno del container
+            - /app/node_modules
+            # mappo la cartella corrente all'esterno del container con la cartella app dentro al container
+            - .:/app
+    tests:
+        container_name: tests
+        build: 
+            context: . 
+            dockerfile: Dockerfile.dev
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        command: [“npm”, ”run”, “test”]
